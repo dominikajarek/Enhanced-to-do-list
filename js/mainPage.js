@@ -24,6 +24,5 @@ function addNewTask() {
     }
 
     const newTask = addNewTask();
-    console.log(newTask);
     document.getElementById("tasks").appendChild(newTask);
 }
