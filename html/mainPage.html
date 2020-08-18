@@ -9,7 +9,27 @@
 <body>
 
     <div id="container">
-
+        <div class="task">
+            <label for="title"></label>
+            <input  type="text" id="title" placeholder="title">
+            <div class="date">
+                <label for="date1">date: </label>
+                <input type="date" id="date1">
+                <input type="submit">
+            </div>
+            <div class="time">
+                <label for="time1">time: </label>
+                <input type="time" id="time1">
+                <input type="submit">
+            </div>
+            <div class="description">
+                <label for="description1">your note: </label>
+                <input type="text" id="description1">
+                <input type="submit">
+            </div>
+            <input type="checkbox" id="check">
+            <label for="check">done</label>
+        </div>
     </div>
 
     <template id="task-template">
@@ -23,6 +43,11 @@
             <div class="time">
                 <label for="time">time: </label>
                 <input type="time" id="time">
+                <input type="submit">
+            </div>
+            <div class="description">
+                <label for="description">your note: </label>
+                <input type="text" id="description">
                 <input type="submit">
             </div>
         </div>
