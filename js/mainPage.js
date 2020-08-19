@@ -9,7 +9,6 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
         addNewTask();
     });
     document.addEventListener('click', saveData);
-    //enableSpeechRecognition();
 })();
 
 function addNewTask(title='Title', date='', time='', description='', isDone='') {
@@ -58,7 +57,6 @@ function addNewTask(title='Title', date='', time='', description='', isDone='') 
             localStorage.removeItem(this.parentElement.id);
             this.parentElement.remove();
         })
-        let content;
 
         enableSpeechRecognition(clonedTemplate);
 
@@ -172,6 +170,8 @@ function checkAdditionalWindows() {
 }
 
 function enableSpeechRecognition(clonedTemplate) {
+    let content;
+
     if (SpeechRecognition) {
         console.log('Your browser supports speech recognition');
 
