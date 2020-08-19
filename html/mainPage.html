@@ -5,6 +5,7 @@
     <title>To-Do List</title>
     <link rel="stylesheet" href="../css/mainPage.css">
     <script src="../js/mainPage.js" defer></script>
+    <script src="../js/speechRecognition.js" defer></script>
 </head>
 <body>
     <div id="container">
@@ -13,27 +14,51 @@
     </div>
 
     <template id="task-template">
+
         <div class="task">
+
             <button id="remove-task">x</button>
-            <h2 class="title"></h2>
+
+            <div class="title">
+                <label for="title">Title: </label>
+                <textarea id="title" class="title"></textarea>
+            </div>
+
             <div class="task-date">
                 <label for="date">Date: </label>
                 <input type="date" id="date" class="date">
-                <input type="submit">
             </div>
+
             <div class="task-time">
                 <label for="time">Time: </label>
                 <input type="time" id="time" class="time">
-                <input type="submit">
             </div>
-            <div class="task-description">
+
+            <div class="task-description" id="task-description">
+
                 <label for="description">Your note: </label>
-                <input type="text" id="description" class="description">
-                <input type="submit">
+
+                <textarea id="description" class="description"></textarea>
+
             </div>
+
+            <p><button type="button" id="recordButton">
+                Speech to Text
+            </button><span id="record"></span>
+            </p>
+
+            <button type="submit">submit</button>
+
             <input type="checkbox" id="check" class="check">
             <label for="check">done</label>
         </div>
     </template>
+
 </body>
 </html>
+
+<!--<div class="task-description" id="task-description">-->
+<!--    <label for="description">Your note: </label>-->
+<!--    <input type="text" id="description" class="description">-->
+<!--    <input type="submit">-->
+<!--</div>-->

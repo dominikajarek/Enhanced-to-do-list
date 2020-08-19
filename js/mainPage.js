@@ -8,7 +8,7 @@ let taskNumber = 0;
     document.addEventListener('click', saveData);
 })();
 
-function addNewTask(title='Title', date='', time='', description='', isDone='') {
+function addNewTask(title='', date='', time='', description='', isDone='') {
     const addNewTask = function () {
         taskNumber++;
         let taskId = "task_" + taskNumber;
@@ -18,7 +18,7 @@ function addNewTask(title='Title', date='', time='', description='', isDone='') 
 
         clonedTemplate.querySelector('.task').setAttribute('id', taskId);
 
-        clonedTemplate.querySelector('.title').innerHTML = title;
+        clonedTemplate.querySelector('.title').value = title;
 
         if (date !== ''){
             clonedTemplate.getElementById('date').value = date;
@@ -49,7 +49,7 @@ function saveData() {
         let task = taskList[index];
         let key = task.id;
 
-        let taskToSave = {'title': task.getElementsByClassName('title')[0].textContent,
+        let taskToSave = {'title': task.getElementsByClassName('title')[0].value,
                           'description': task.getElementsByClassName('description')[0].value,
                           'date': task.getElementsByClassName('date')[0].value,
                           'time': task.getElementsByClassName('time')[0].value,

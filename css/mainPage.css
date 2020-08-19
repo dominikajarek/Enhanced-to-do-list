@@ -1,0 +1,32 @@
+body {
+    font-family: arial, sans-serif;
+}
+button {
+    padding:1em;
+    background-color:#6a67ce;
+    margin: 0.5em;
+    color: #FFFFFF;
+    cursor:pointer;
+    border-radius: 5px;
+}
+#output {
+    background-color:#F9F9F9;
+    padding:10px;
+    width: 100%;
+    margin-top:20px;
+    line-height:30px;
+}
+
+.task-description {
+    border: 0.1em solid #6a67ce;
+    width: 20em;
+    margin: 1em;
+    padding: 1em;
+}
+
+.task {
+    border: 0.3em solid #6a67ce;
+    width: 25em;
+    padding: 1em;
+    margin: 1em;
+}
