@@ -1,21 +1,23 @@
 let taskNumber = 0;
 
+//make clone of task template
+const template = document.querySelector('#task-template');
+const clonedTemplate = document.importNode(template.content, true);
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
 (() => {
-    loadData();
-    checkAdditionalWindows();
+    // loadData();
+    // checkAdditionalWindows();
     document.getElementById("add-task").addEventListener('click', function () {
         addNewTask();
     });
     document.addEventListener('click', saveData);
+    enableSpeechRecognition();
 })();
 
 function addNewTask(title='Title', date='', time='', description='', isDone='') {
     const addNewTask = function () {
         taskNumber++;
-
-        //make clone of task template
-        const template = document.querySelector('#task-template');
-        const clonedTemplate = document.importNode(template.content, true);
 
         //set main task div 'id'
         clonedTemplate.querySelector('.task').setAttribute('id', "task_" + taskNumber);
@@ -42,6 +44,7 @@ function addNewTask(title='Title', date='', time='', description='', isDone='') 
         clonedTemplate.querySelector('.task-description').setAttribute('id', "description_div_task_" + taskNumber);
         clonedTemplate.querySelector('.description').setAttribute('id', "description_task_" + taskNumber);
         clonedTemplate.querySelector('.descriptionLabel').setAttribute('for', "description_task_" + taskNumber);
+        clonedTemplate.querySelector('.mic-button').setAttribute('button', 'button_' + taskNumber);
         clonedTemplate.querySelector('.description').value = description;
 
         //set checkbox 'id', it's label 'for' and checked value
@@ -72,7 +75,7 @@ function saveData() {
         //set description value
         let descriptionValue;
         // (when description is empty, it changes to button so then it's undefined)
-        if (task.getElementsByClassName('description')[0] === undefined){
+        if (task.getElementsByClassName('description')[0] === undefined) {
             descriptionValue = '';
         } else {
             descriptionValue = task.getElementsByClassName('description')[0].value;
@@ -81,7 +84,7 @@ function saveData() {
         //set time value
         let timeValue;
         // (when time is empty, it changes to button so then it's undefined)
-        if (task.getElementsByClassName('time')[0] === undefined){
+        if (task.getElementsByClassName('time')[0] === undefined) {
             timeValue = '';
         } else {
             timeValue = task.getElementsByClassName('time')[0].value;
@@ -103,9 +106,9 @@ function saveData() {
 }
 
 function loadData() {
-    for (let index = 0; index < localStorage.length; index++){
+    for (let index = 0; index < localStorage.length; index++) {
         let key = localStorage.key(index);
-        if (key.includes('task')){
+        if (key.includes('task')) {
             let taskInfo = JSON.parse(localStorage.getItem(key));
             let title = taskInfo.title;
             let date = taskInfo.date;
@@ -158,8 +161,51 @@ function checkAdditionalWindows() {
         });
 
         //if description box is empty it changes to button
-        if (task.normalDescription.querySelector('.description').value === ''){
+        if (task.normalDescription.querySelector('.description').value === '') {
             task.normalDescription.replaceWith(task.hiddenDescription);
         }
+    }
+}
+
+function enableSpeechRecognition() {
+    let content;
+
+    if (SpeechRecognition) {
+        console.log('Your browser supports speech recognition');
+
+        const microphoneButton = clonedTemplate.querySelector('.mic-button');
+        const microphoneIcon = clonedTemplate.querySelector('i');
+        const recognition = new SpeechRecognition();
+
+        microphoneButton.addEventListener('click', microphoneActivation, true);
+
+        function microphoneActivation() {
+            content = this.parentElement.querySelector('.description');
+            microphoneIcon.classList.contains('fa-microphone') ? recognition.start() : recognition.stop();
+        }
+
+        recognition.addEventListener('start', startRecognition);
+        function startRecognition() {
+            microphoneIcon.classList.remove('fa-microphone');
+            microphoneIcon.classList.add('fa-microphone-slash');
+            console.log('Speech recognition active');
+        }
+
+        recognition.addEventListener('end', endRecognition);
+        function endRecognition() {
+            microphoneIcon.classList.remove('fa-microphone-slash');
+            microphoneIcon.classList.add('fa-microphone');
+            console.log('Speech recognition inactive');
+        }
+
+        recognition.addEventListener('result', resultOfSpeechRecognition)
+        function resultOfSpeechRecognition(event) {
+            const transcript = event.results[event.resultIndex][0].transcript;
+            if (!!content) {
+                content.value = transcript;
+            }
+        }
+    } else {
+        console.log('Unfortunately, your browser doesn\'t support speech recognition');
     }
 }
