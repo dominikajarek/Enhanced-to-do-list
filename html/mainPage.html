@@ -14,25 +14,25 @@
 
     <template id="task-template">
         <div class="task">
-            <button id="remove-task">x</button>
-            <h2 class="title"></h2>
+            <button class="remove-task-button">x</button>
+            <h2 class="title" contenteditable="true"></h2>
             <div class="task-date">
-                <label for="date">Date: </label>
-                <input type="date" id="date" class="date">
+                <label class="dateLabel">Date: </label>
+                <input type="date" class="date">
                 <input type="submit">
             </div>
             <div class="task-time">
-                <label for="time">Time: </label>
-                <input type="time" id="time" class="time">
+                <label class="timeLabel">Time: </label>
+                <input type="time" class="time">
                 <input type="submit">
             </div>
             <div class="task-description">
-                <label for="description">Your note: </label>
-                <input type="text" id="description" class="description">
+                <label class="descriptionLabel">Your note: </label>
+                <input type="text" class="description">
                 <input type="submit">
             </div>
-            <input type="checkbox" id="check" class="check">
-            <label for="check">done</label>
+            <input type="checkbox" class="checkbox">
+            <label class="checkboxLabel">done</label>
         </div>
     </template>
 </body>
