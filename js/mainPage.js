@@ -2,6 +2,7 @@ let taskNumber = 0;
 
 (() => {
     loadData();
+    //checkAdditionalWindows();
     document.getElementById("add-task").addEventListener('click', function () {
         addNewTask();
     });
@@ -20,18 +21,27 @@ function addNewTask(title='Title', date='', time='', description='', isDone='') 
 
         clonedTemplate.querySelector('.title').innerHTML = title;
 
+        clonedTemplate.querySelector('.date').setAttribute('id', "date_task_" + taskNumber);
+        clonedTemplate.querySelector('.dateLabel').setAttribute('for', "date_task_" + taskNumber);
         if (date !== ''){
-            clonedTemplate.getElementById('date').value = date;
-        }
-        if (time !== ''){
-            clonedTemplate.getElementById('time').value = time;
+            clonedTemplate.querySelector('.date').value = date;
         }
 
+        clonedTemplate.querySelector('.time').setAttribute('id', "time_task_" + taskNumber);
+        clonedTemplate.querySelector('.timeLabel').setAttribute('for', "time_task_" + taskNumber);
+        if (time !== ''){
+            clonedTemplate.querySelector('.time').value = time;
+        }
+
+        clonedTemplate.querySelector('.description').setAttribute('id', "description_task_" + taskNumber);
+        clonedTemplate.querySelector('.descriptionLabel').setAttribute('for', "description_task_" + taskNumber);
         clonedTemplate.querySelector('.description').value = description;
 
-        clonedTemplate.querySelector('.check').checked = isDone;
+        clonedTemplate.querySelector('.checkbox').setAttribute('id', "checkbox_task_" + taskNumber);
+        clonedTemplate.querySelector('.checkboxLabel').setAttribute('for', "checkbox_task_" + taskNumber);
+        clonedTemplate.querySelector('.checkbox').checked = isDone;
 
-        clonedTemplate.getElementById("remove-task").addEventListener('click', function () {
+        clonedTemplate.querySelector('.remove-task-button').addEventListener('click', function () {
             localStorage.removeItem(this.parentElement.id);
             this.parentElement.remove();
         })
@@ -53,7 +63,7 @@ function saveData() {
                           'description': task.getElementsByClassName('description')[0].value,
                           'date': task.getElementsByClassName('date')[0].value,
                           'time': task.getElementsByClassName('time')[0].value,
-                          'isDone': task.getElementsByClassName('check')[0].checked};
+                          'isDone': task.getElementsByClassName('checkbox')[0].checked};
 
         localStorage.setItem(key, JSON.stringify(taskToSave));
     }
@@ -71,6 +81,25 @@ function loadData() {
             let isDone = taskInfo.isDone;
 
             addNewTask(title, date, time, description, isDone);
+        }
+    }
+}
+
+function checkAdditionalWindows() {
+    let taskList = document.getElementsByClassName('task');
+    for (let index = 0; index < taskList.length; index++) {
+        let task = taskList[index];
+        let taskNormalTime = task.querySelector('.task-time');
+        let hiddenTime = document.createElement('BUTTON');
+        console.log("taskTime = " + taskNormalTime.querySelector('.time').value);
+
+        if (taskNormalTime.querySelector('.time').value === ''){
+            hiddenTime.innerText = '-';
+            hiddenTime.addEventListener('click', function () {
+                hiddenTime.replaceWith(taskNormalTime);
+            });
+
+            document.querySelector('.task-time').replaceWith(hiddenTime);
         }
     }
 }
