@@ -1,23 +1,24 @@
 let taskNumber = 0;
 
-//make clone of task template
-const template = document.querySelector('#task-template');
-const clonedTemplate = document.importNode(template.content, true);
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 (() => {
-    // loadData();
-    // checkAdditionalWindows();
+    loadData();
+    checkAdditionalWindows();
     document.getElementById("add-task").addEventListener('click', function () {
         addNewTask();
     });
     document.addEventListener('click', saveData);
-    enableSpeechRecognition();
+    //enableSpeechRecognition();
 })();
 
 function addNewTask(title='Title', date='', time='', description='', isDone='') {
     const addNewTask = function () {
         taskNumber++;
+
+        //make clone of task template
+        const template = document.querySelector('#task-template');
+        const clonedTemplate = document.importNode(template.content, true);
 
         //set main task div 'id'
         clonedTemplate.querySelector('.task').setAttribute('id', "task_" + taskNumber);
@@ -57,6 +58,9 @@ function addNewTask(title='Title', date='', time='', description='', isDone='') 
             localStorage.removeItem(this.parentElement.id);
             this.parentElement.remove();
         })
+        let content;
+
+        enableSpeechRecognition(clonedTemplate);
 
         return clonedTemplate;
     }
@@ -167,9 +171,7 @@ function checkAdditionalWindows() {
     }
 }
 
-function enableSpeechRecognition() {
-    let content;
-
+function enableSpeechRecognition(clonedTemplate) {
     if (SpeechRecognition) {
         console.log('Your browser supports speech recognition');
 
