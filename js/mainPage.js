@@ -2,7 +2,7 @@ let taskNumber = 0;
 
 (() => {
     loadData();
-    //checkAdditionalWindows();
+    checkAdditionalWindows();
     document.getElementById("add-task").addEventListener('click', function () {
         addNewTask();
     });
@@ -12,35 +12,44 @@ let taskNumber = 0;
 function addNewTask(title='Title', date='', time='', description='', isDone='') {
     const addNewTask = function () {
         taskNumber++;
-        let taskId = "task_" + taskNumber;
 
+        //make clone of task template
         const template = document.querySelector('#task-template');
         const clonedTemplate = document.importNode(template.content, true);
 
-        clonedTemplate.querySelector('.task').setAttribute('id', taskId);
+        //set main task div 'id'
+        clonedTemplate.querySelector('.task').setAttribute('id', "task_" + taskNumber);
 
+        //set title value
         clonedTemplate.querySelector('.title').innerHTML = title;
 
+        //date div settings (add div 'id', description 'id', label 'for' and date value)
         clonedTemplate.querySelector('.date').setAttribute('id', "date_task_" + taskNumber);
         clonedTemplate.querySelector('.dateLabel').setAttribute('for', "date_task_" + taskNumber);
         if (date !== ''){
             clonedTemplate.querySelector('.date').value = date;
         }
 
+        //time div settings (add div 'id', description 'id', label 'for' and time value)
+        clonedTemplate.querySelector('.task-time').setAttribute('id', "time_div_task_" + taskNumber);
         clonedTemplate.querySelector('.time').setAttribute('id', "time_task_" + taskNumber);
         clonedTemplate.querySelector('.timeLabel').setAttribute('for', "time_task_" + taskNumber);
         if (time !== ''){
             clonedTemplate.querySelector('.time').value = time;
         }
 
+        //description div settings (add div 'id', description 'id', label 'for' and description value)
+        clonedTemplate.querySelector('.task-description').setAttribute('id', "description_div_task_" + taskNumber);
         clonedTemplate.querySelector('.description').setAttribute('id', "description_task_" + taskNumber);
         clonedTemplate.querySelector('.descriptionLabel').setAttribute('for', "description_task_" + taskNumber);
         clonedTemplate.querySelector('.description').value = description;
 
+        //set checkbox 'id', it's label 'for' and checked value
         clonedTemplate.querySelector('.checkbox').setAttribute('id', "checkbox_task_" + taskNumber);
         clonedTemplate.querySelector('.checkboxLabel').setAttribute('for', "checkbox_task_" + taskNumber);
         clonedTemplate.querySelector('.checkbox').checked = isDone;
 
+        //add eventListener to button removing task
         clonedTemplate.querySelector('.remove-task-button').addEventListener('click', function () {
             localStorage.removeItem(this.parentElement.id);
             this.parentElement.remove();
@@ -54,16 +63,40 @@ function addNewTask(title='Title', date='', time='', description='', isDone='') 
 }
 
 function saveData() {
+    //make list of tasks
     let taskList = document.getElementsByClassName('task');
     for (let index = 0; index < taskList.length; index++){
         let task = taskList[index];
         let key = task.id;
 
-        let taskToSave = {'title': task.getElementsByClassName('title')[0].textContent,
-                          'description': task.getElementsByClassName('description')[0].value,
-                          'date': task.getElementsByClassName('date')[0].value,
-                          'time': task.getElementsByClassName('time')[0].value,
-                          'isDone': task.getElementsByClassName('checkbox')[0].checked};
+        //set description value
+        let descriptionValue;
+        // (when description is empty, it changes to button so then it's undefined)
+        if (task.getElementsByClassName('description')[0] === undefined){
+            descriptionValue = '';
+        } else {
+            descriptionValue = task.getElementsByClassName('description')[0].value;
+        }
+
+        //set time value
+        let timeValue;
+        // (when time is empty, it changes to button so then it's undefined)
+        if (task.getElementsByClassName('time')[0] === undefined){
+            timeValue = '';
+        } else {
+            timeValue = task.getElementsByClassName('time')[0].value;
+        }
+
+        //set rest of values (title, date, isDone status)
+        let titleValue = task.getElementsByClassName('title')[0].textContent;
+        let dateValue = task.getElementsByClassName('date')[0].value;
+        let isDoneValue = task.getElementsByClassName('checkbox')[0].checked;
+
+        let taskToSave = {'title': titleValue,
+                          'description': descriptionValue,
+                          'date': dateValue,
+                          'time': timeValue,
+                          'isDone': isDoneValue};
 
         localStorage.setItem(key, JSON.stringify(taskToSave));
     }
@@ -86,20 +119,47 @@ function loadData() {
 }
 
 function checkAdditionalWindows() {
+    //set list of tasks
     let taskList = document.getElementsByClassName('task');
     for (let index = 0; index < taskList.length; index++) {
         let task = taskList[index];
-        let taskNormalTime = task.querySelector('.task-time');
-        let hiddenTime = document.createElement('BUTTON');
-        console.log("taskTime = " + taskNormalTime.querySelector('.time').value);
 
-        if (taskNormalTime.querySelector('.time').value === ''){
-            hiddenTime.innerText = '-';
-            hiddenTime.addEventListener('click', function () {
-                hiddenTime.replaceWith(taskNormalTime);
-            });
+        //set field for normal display of time box
+        task.normalTime = task.querySelector('.task-time');
+        //set field for hidden time box button
+        task.hiddenTime = document.createElement('BUTTON');
+        task.hiddenTime.setAttribute('id', "hidden_" + task.normalTime.id);
+        task.hiddenTime.innerText = '-';
+        task.hiddenTime.addEventListener('click', function () {
+            //while click on button, it will display normal form of time box
+            // ("hidden_" added for compare possibility)
+            if (task.hiddenTime.id === "hidden_" + task.normalTime.id){
+                task.hiddenTime.replaceWith(task.normalTime);
+            }
+        });
 
-            document.querySelector('.task-time').replaceWith(hiddenTime);
+        //if time box is empty it changes to button
+        if (task.normalTime.querySelector('.time').value === ''){
+            task.normalTime.replaceWith(task.hiddenTime);
+        }
+
+        //set field for normal display of description box
+        task.normalDescription = task.querySelector('.task-description');
+        //set field for hidden description box button
+        task.hiddenDescription = document.createElement('BUTTON');
+        task.hiddenDescription.setAttribute('id', "hidden_" + task.normalDescription.id);
+        task.hiddenDescription.innerText = '-';
+        task.hiddenDescription.addEventListener('click', function () {
+            //while click on button, it will display normal form of description box
+            // ("hidden_" added for compare possibility)
+            if (task.hiddenDescription.id === "hidden_" + task.normalDescription.id){
+                task.hiddenDescription.replaceWith(task.normalDescription);
+            }
+        });
+
+        //if description box is empty it changes to button
+        if (task.normalDescription.querySelector('.description').value === ''){
+            task.normalDescription.replaceWith(task.hiddenDescription);
         }
     }
 }
