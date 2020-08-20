@@ -114,19 +114,12 @@ function loadCalendarDays() {
             const dayDateStr = normalizeDate(dayDate);
             if (!!getTasksFromLS().find(task => task.date === dayDateStr)) {
                 const dayTasks = getTasksFromLSByDate(dayDateStr);
+                document.querySelector('.header').innerHTML = dayDateStr;
                 injectTasksToHtml(dayTasks);
             } else {
                 injectTasksToHtml([]);
+                document.querySelector('.header').innerHTML = dayDateStr;
             }
-
-
-            // this.classList.toggle('selected');
-            //
-            // if (!selectedDays.includes(this.dataset.day)) {
-            //     selectedDays.push(this.dataset.day);
-            // } else {
-            //     selectedDays.splice(selectedDays.indexOf(this.dataset.day), 1);
-            // }
         });
 
         day.addEventListener('mousemove', function (e) {
@@ -137,16 +130,6 @@ function loadCalendarDays() {
             if (!selectedDays.includes(this.dataset.day)) {
                 selectedDays.push(this.dataset.day);
             }
-        });
-
-        day.addEventListener('mousedown', function (e) {
-            e.preventDefault();
-            mousedown = true;
-        });
-
-        day.addEventListener('mouseup', function (e) {
-            e.preventDefault();
-            mousedown = false;
         });
         document.getElementById("calendarDays").appendChild(day);
     }

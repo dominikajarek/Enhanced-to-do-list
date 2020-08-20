@@ -1,15 +1,17 @@
 :root {
-    --boxShadow: 0 2em 2em rgba(0,0,0,0.4);
-    --fontFamily: Samanata, serif;
-    --fontColor: #2f2a2a;
+    --fontFamily-: "Montserrat", sans-serif;
+    --boxShadow-: 0 2em 2em rgba(0, 0, 0, 0.4);
+    --borderRadius-: 0.2em;
+    --fontColor-: rgba(255, 255, 255, 0.65);
+    --background--color: rgba(245, 245, 245, 0.2);
 }
 
 body {
     box-sizing: border-box;
-    background-image: url("../img/desert.png");
+    background: url("../img/desert.png") no-repeat center fixed;
     background-size: cover;
-    background-attachment: fixed;
-    font-family: var(--fontFamily);
+    font-family: var(--fontFamily-);
+    color: var(--fontColor);
     margin: 0;
 }
 
@@ -26,7 +28,7 @@ body {
 }
 
 .task {
-    border-top: 1px solid black;
+    border-top: 1px solid rgba(255, 255, 255, 0.65);
     margin-top: 5px;
 }
 
@@ -36,18 +38,24 @@ body {
     height: 35em;
 }
 
+.header {
+    margin: 1em;
+    text-align: center;
+}
+
 .content-containers {
-    box-shadow: var(--boxShadow);
+    box-shadow: var(--boxShadow-);
     background-size: auto;
-    background-color: rgba(43,40,46,0.3);
+    background-color: rgba(30, 31, 33, 0.6);
     margin: 2em;
+    border-radius: var(--borderRadius-);
 }
 
 .dropdown {
     display: none;
     position: absolute;
-    background-color: rgba(43,40,46,0.41);
-    color: var(--fontColor);
+    background-color: rgba(245, 245, 245, 0.2);
+    color: var(--fontColor-);
     text-align: center;
     font-size: 1em;
     padding-top: 3em;
@@ -56,13 +64,16 @@ body {
     overflow: auto;
     height: 22em !important;
     float: left;
+    border-radius: var(--borderRadius-);
 }
+
+
 
 .calendarBtn {
     background-color: rgba(46,41,49,0);
-    color: var(--fontColor);
+    color: var(--fontColor-);
     text-align: center;
-    border-radius: 1em;
+    border-radius: var(--borderRadius-);
     width: 20%;
 }
 
@@ -78,7 +89,7 @@ body {
     margin: 1%;
     font-size: 1em;
     text-align:center;
-    border-radius: 1em;
+    border-radius: var(--borderRadius-);
 }
 
 
@@ -87,20 +98,13 @@ body {
     border:none;
 }
 
-.day.selected {
-    background-color: #27272f;
-    color: #070505;
-    opacity: .5;
-    transition: .5s opacity;
-}
-
 .calendar-dates .days .day.selected:hover {
     opacity: 1;
 }
 
 .calendar-dates .day.label {
     background-color: rgba(71,65,74,0);
-    color: black;
+    color: var(--fontColor-);
     border:none;
     font-weight:bold;
 }
@@ -109,18 +113,12 @@ body {
     clear:both;
 }
 
-.clock {
-    font-family: var(--fontFamily);
-    font-size: 4em;
-    color: white;
-}
-
 .taskBtn .daysTask {
     position: relative;
     display: inline-block;
     width: 50%;
     background-color: rgba(49,45,52,0.4);
-    color: var(--fontColor);
+    color: var(--fontColor-);
     overflow: auto;
     height: 22em !important;
 }
@@ -133,4 +131,26 @@ body {
 #currentMonth, #months {
     float: left;
     padding-left: 1.5em;
+    margin: 1em;
+    border: 1em;
 }
+
+.btn {
+    box-shadow: var(--boxShadow-);
+    font-family: var(--fontFamily-);
+    background-color: rgba(245, 245, 245, 0.2);
+    border: none;
+    border-radius: var(--borderRadius-);
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 3em;
+}
+
+.btn:hover {
+    color: var(--fontColor-);
+}
+
