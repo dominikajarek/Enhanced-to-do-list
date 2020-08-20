@@ -10,6 +10,7 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
     });
     document.getElementById("search-task").addEventListener('click', function () {
         searchForTask();
+        //checkAdditionalWindows();
     });
     document.addEventListener('click', saveData);
 })();
@@ -216,36 +217,12 @@ function enableSpeechRecognition(clonedTemplate) {
 }
 
 function searchForTask() {
-    let searchBox = document.createElement("INPUT");
-    searchBox.setAttribute('id', 'search-box');
-    searchBox.setAttribute('type', 'text');
-    searchBox.setAttribute('placeholder', 'title/yyyy-mm-dd');
-
-    let searchOffButton = document.getElementById("search-task-off");
-
-    searchOffButton.addEventListener('click', function () {
-        document.getElementById("buttons").removeChild(document.getElementById('search-box'));
-        searchOffButton.style.display = 'none';
-        let tasksToShow = document.getElementById("tasks").childNodes;
-        for (let index = 0; index < tasks.length; index++) {
-            let taskToShow = tasksToShow[index];
-            if (taskToShow.tagName === "DIV") {
-                taskToShow.style.display = 'block';
-            }
-        }
-    })
-
     let tasks = document.getElementById("tasks").childNodes;
     for (let index = 0; index < tasks.length; index++) {
         let taskToHide = tasks[index];
         if (taskToHide.tagName === "DIV") {
             taskToHide.style.display = 'none';
         }
-    }
-
-    if (!document.getElementById('search-box')) {
-        document.getElementById("buttons").appendChild(searchBox);
-        searchOffButton.style.display = 'block';
     }
 
     let searchPhrase = document.getElementById('search-box').value;
