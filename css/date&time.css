@@ -3,15 +3,18 @@
     --boxShadow-: 0 2em 2em rgba(0, 0, 0, 0.4);
     --borderRadius-: 0.2em;
     --fontColor-: rgba(255, 255, 255, 0.65);
-    --background--color: rgba(245, 245, 245, 0.2);
+    --background--color: rgba(30, 31, 33, 0.6);
+}
+
+* {
+    font-family: var(--fontFamily-);
+    color: var(--fontColor-);
 }
 
 body {
     box-sizing: border-box;
     background: url("../img/desert.png") no-repeat center fixed;
     background-size: cover;
-    font-family: var(--fontFamily-);
-    color: var(--fontColor);
     margin: 0;
 }
 
@@ -46,7 +49,7 @@ body {
 .content-containers {
     box-shadow: var(--boxShadow-);
     background-size: auto;
-    background-color: rgba(30, 31, 33, 0.6);
+    background-color: var(--background--color);
     margin: 2em;
     border-radius: var(--borderRadius-);
 }
@@ -54,20 +57,18 @@ body {
 .dropdown {
     display: none;
     position: absolute;
-    background-color: rgba(245, 245, 245, 0.2);
+    background-color: var(--background--color);
     color: var(--fontColor-);
     text-align: center;
-    font-size: 1em;
-    padding-top: 3em;
+    font-size: 1.2em;
+    padding-top: 1em;
     padding-left: 2em;
     padding-right: 2em;
     overflow: auto;
-    height: 22em !important;
+    height: 15em !important;
     float: left;
     border-radius: var(--borderRadius-);
 }
-
-
 
 .calendarBtn {
     background-color: rgba(46,41,49,0);
@@ -81,17 +82,15 @@ body {
     background-color: rgba(56,51,59,0);
 }
 
-
 .calendar-dates .days .day {
     float:left;
     width: 10%;
-    padding: 1%;
-    margin: 1%;
+    padding: 0.5em;
+    margin: 0.5em;
     font-size: 1em;
     text-align:center;
     border-radius: var(--borderRadius-);
 }
-
 
 .calendar-dates .day.blank {
     background-color: transparent;
@@ -105,7 +104,6 @@ body {
 .calendar-dates .day.label {
     background-color: rgba(71,65,74,0);
     color: var(--fontColor-);
-    border:none;
     font-weight:bold;
 }
 
@@ -125,15 +123,30 @@ body {
 
 .calendar .yearBtn {
     float:right;
+    padding-right: 0.5em;
+    margin: 1em;
+    border: 1em;
+    padding-bottom: 1em;
 }
 
+.days {
+    border-top: 0.1em solid rgba(255, 255, 255, 0.65);
+    padding-top: 0.1em;
+}
+
+#calendarDays {
+    padding-top: 5em;
+    padding-bottom: 5em;
+}
 
 #currentMonth, #months {
     float: left;
     padding-left: 1.5em;
     margin: 1em;
     border: 1em;
+    padding-bottom: 1em;
 }
+
 
 .btn {
     box-shadow: var(--boxShadow-);
@@ -141,7 +154,6 @@ body {
     background-color: rgba(245, 245, 245, 0.2);
     border: none;
     border-radius: var(--borderRadius-);
-    color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -151,6 +163,23 @@ body {
 }
 
 .btn:hover {
-    color: var(--fontColor-);
+    color: var(--fontColor);
+    background-color: rgba(236, 234, 234, 0.33);
+
+}
+
+::-webkit-scrollbar {
+    width: 0.6em;
+    border-radius: 0.2em;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 1em;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(245, 245, 245, 0.2);
+    border-radius: var(--borderRadius);
 }
 
