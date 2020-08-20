@@ -1,0 +1,136 @@
+:root {
+    --boxShadow: 0 2em 2em rgba(0,0,0,0.4);
+    --fontFamily: Samanata, serif;
+    --fontColor: #2f2a2a;
+}
+
+body {
+    box-sizing: border-box;
+    background-image: url("../img/desert.png");
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: var(--fontFamily);
+    margin: 0;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    max-height: 70vh;
+}
+
+.tasks-container {
+    flex: 1;
+    overflow: auto;
+    padding: 0 5px;
+}
+
+.task {
+    border-top: 1px solid black;
+    margin-top: 5px;
+}
+
+.calendar {
+    flex: 3;
+    padding: 1em;
+    height: 35em;
+}
+
+.content-containers {
+    box-shadow: var(--boxShadow);
+    background-size: auto;
+    background-color: rgba(43,40,46,0.3);
+    margin: 2em;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    background-color: rgba(43,40,46,0.41);
+    color: var(--fontColor);
+    text-align: center;
+    font-size: 1em;
+    padding-top: 3em;
+    padding-left: 2em;
+    padding-right: 2em;
+    overflow: auto;
+    height: 22em !important;
+    float: left;
+}
+
+.calendarBtn {
+    background-color: rgba(46,41,49,0);
+    color: var(--fontColor);
+    text-align: center;
+    border-radius: 1em;
+    width: 20%;
+}
+
+.calendarBtn:hover {
+    background-color: rgba(56,51,59,0);
+}
+
+
+.calendar-dates .days .day {
+    float:left;
+    width: 10%;
+    padding: 1%;
+    margin: 1%;
+    font-size: 1em;
+    text-align:center;
+    border-radius: 1em;
+}
+
+
+.calendar-dates .day.blank {
+    background-color: transparent;
+    border:none;
+}
+
+.day.selected {
+    background-color: #27272f;
+    color: #070505;
+    opacity: .5;
+    transition: .5s opacity;
+}
+
+.calendar-dates .days .day.selected:hover {
+    opacity: 1;
+}
+
+.calendar-dates .day.label {
+    background-color: rgba(71,65,74,0);
+    color: black;
+    border:none;
+    font-weight:bold;
+}
+
+.clear {
+    clear:both;
+}
+
+.clock {
+    font-family: var(--fontFamily);
+    font-size: 4em;
+    color: white;
+}
+
+.taskBtn .daysTask {
+    position: relative;
+    display: inline-block;
+    width: 50%;
+    background-color: rgba(49,45,52,0.4);
+    color: var(--fontColor);
+    overflow: auto;
+    height: 22em !important;
+}
+
+.calendar .yearBtn {
+    float:right;
+}
+
+
+#currentMonth, #months {
+    float: left;
+    padding-left: 1.5em;
+}
