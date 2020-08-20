@@ -1,5 +1,4 @@
 let taskNumber = 0;
-
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 (() => {
@@ -14,6 +13,8 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
     });
     document.getElementById('submit').addEventListener('click', saveData);
     document.addEventListener('click', saveData);
+    displayTime();
+    displayDay();
 })();
 
 function addNewTask(title='Title', date='', time='', description='', isDone='') {
@@ -235,12 +236,52 @@ function searchForTask() {
     let taskList = document.getElementsByClassName('task');
     for (let index = 0; index < taskList.length; index++) {
         let task = taskList[index];
-        if (task.querySelector('.title').textContent.includes(searchPhrase)){
+        if (task.querySelector('.title').textContent.includes(searchPhrase)) {
             task.style.display = 'block';
         }
         console.log(task.querySelector('.date').value);
-        if (task.querySelector('.date').value.includes(searchPhrase)){
+        if (task.querySelector('.date').value.includes(searchPhrase)) {
             task.style.display = 'block';
         }
     }
+}
+
+function displayTime() {
+    let date = new Date();
+    let h = date.getHours();
+    let m = date.getMinutes();
+    let session = "AM";
+
+    if (h === 0) {
+        h = 12;
+    }
+
+    if (h > 12) {
+        h = h - 12;
+        session = "PM";
+    }
+
+    h = (h < 10) ? "0" + h : h;
+    m = (m < 10) ? "0" + m : m;
+
+    let time = h + ":" + m + " " + session;
+    document.getElementById("clock").textContent = time;
+    // document.getElementById("clock").textContent = time;
+
+    setTimeout(displayTime, 1000);
+}
+
+function displayDay() {
+    let d = new Date();
+    let weekday = new Array(7);
+    weekday[0] = "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";
+
+    let day = weekday[d.getDay()];
+    document.getElementById("day").textContent = day;
 }
