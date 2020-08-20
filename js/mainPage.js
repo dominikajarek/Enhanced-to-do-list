@@ -8,6 +8,9 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
     document.getElementById("add-task").addEventListener('click', function () {
         addNewTask();
     });
+    document.getElementById("search-task").addEventListener('click', function () {
+        searchForTask();
+    });
     document.addEventListener('click', saveData);
 })();
 
@@ -209,5 +212,53 @@ function enableSpeechRecognition(clonedTemplate) {
         }
     } else {
         console.log('Unfortunately, your browser doesn\'t support speech recognition');
+    }
+}
+
+function searchForTask() {
+    let searchBox = document.createElement("INPUT");
+    searchBox.setAttribute('id', 'search-box');
+    searchBox.setAttribute('type', 'text');
+    searchBox.setAttribute('placeholder', 'title/yyyy-mm-dd');
+
+    let searchOffButton = document.getElementById("search-task-off");
+
+    searchOffButton.addEventListener('click', function () {
+        document.getElementById("buttons").removeChild(document.getElementById('search-box'));
+        searchOffButton.style.display = 'none';
+        let tasksToShow = document.getElementById("tasks").childNodes;
+        for (let index = 0; index < tasks.length; index++) {
+            let taskToShow = tasksToShow[index];
+            if (taskToShow.tagName === "DIV") {
+                taskToShow.style.display = 'block';
+            }
+        }
+    })
+
+    let tasks = document.getElementById("tasks").childNodes;
+    for (let index = 0; index < tasks.length; index++) {
+        let taskToHide = tasks[index];
+        if (taskToHide.tagName === "DIV") {
+            taskToHide.style.display = 'none';
+        }
+    }
+
+    if (!document.getElementById('search-box')) {
+        document.getElementById("buttons").appendChild(searchBox);
+        searchOffButton.style.display = 'block';
+    }
+
+    let searchPhrase = document.getElementById('search-box').value;
+
+    let taskList = document.getElementsByClassName('task');
+    for (let index = 0; index < taskList.length; index++) {
+        let task = taskList[index];
+        if (task.querySelector('.title').textContent.includes(searchPhrase)){
+            task.style.display = 'block';
+        }
+        console.log(task.querySelector('.date').value);
+        if (task.querySelector('.date').value.includes(searchPhrase)){
+            task.style.display = 'block';
+        }
     }
 }
