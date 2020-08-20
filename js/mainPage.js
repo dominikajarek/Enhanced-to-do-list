@@ -13,6 +13,7 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
         //checkAdditionalWindows();
     });
     document.getElementById('submit').addEventListener('click', saveData);
+    document.addEventListener('click', saveData);
 })();
 
 function addNewTask(title='Title', date='', time='', description='', isDone='') {
@@ -27,7 +28,11 @@ function addNewTask(title='Title', date='', time='', description='', isDone='') 
         clonedTemplate.querySelector('.task').setAttribute('id', "task_" + taskNumber);
 
         //set title value
-        clonedTemplate.querySelector('.title').innerHTML = title;
+        if (title === '') {
+            clonedTemplate.querySelector('.title').innerHTML = "Title cannot be empty";
+        } else {
+            clonedTemplate.querySelector('.title').innerHTML = title;
+        }
 
         //date div settings (add div 'id', description 'id', label 'for' and date value)
         clonedTemplate.querySelector('.date').setAttribute('id', "date_task_" + taskNumber);
