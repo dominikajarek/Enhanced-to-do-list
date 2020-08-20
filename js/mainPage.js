@@ -8,6 +8,10 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
     document.getElementById("add-task").addEventListener('click', function () {
         addNewTask();
     });
+    document.getElementById("search-task").addEventListener('click', function () {
+        searchForTask();
+        //checkAdditionalWindows();
+    });
     document.getElementById('submit').addEventListener('click', saveData);
 })();
 
@@ -209,5 +213,29 @@ function enableSpeechRecognition(clonedTemplate) {
         }
     } else {
         console.log('Unfortunately, your browser doesn\'t support speech recognition');
+    }
+}
+
+function searchForTask() {
+    let tasks = document.getElementById("tasks").childNodes;
+    for (let index = 0; index < tasks.length; index++) {
+        let taskToHide = tasks[index];
+        if (taskToHide.tagName === "DIV") {
+            taskToHide.style.display = 'none';
+        }
+    }
+
+    let searchPhrase = document.getElementById('search-box').value;
+
+    let taskList = document.getElementsByClassName('task');
+    for (let index = 0; index < taskList.length; index++) {
+        let task = taskList[index];
+        if (task.querySelector('.title').textContent.includes(searchPhrase)){
+            task.style.display = 'block';
+        }
+        console.log(task.querySelector('.date').value);
+        if (task.querySelector('.date').value.includes(searchPhrase)){
+            task.style.display = 'block';
+        }
     }
 }
