@@ -9,46 +9,53 @@
             src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous" defer>
-
     </script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<div class="calendar" id="calendar">
-
-    <div class="calendarBtn monthBtn" onclick="$('#months').toggle('fast')">
-        <span id="currentMonth"></span>
-        <div id="months" class="months dropdown"></div>
+<div class="main-container">
+    <div class="tasks-container content-containers">
+        <div class="header">
+            <p>04 August 2020</p>
+        </div>
+        <div class="tasks-list">
+        </div>
     </div>
+    <div class="calendar content-containers" id="calendar">
 
-    <div class="calendarBtn yearBtn" onclick="$('#years').toggle('fast')">
-        <span id="currentYear"></span>
-        <div id="years" class="years dropdown"></div>
-    </div>
-
-    <div class="clear"></div>
-
-    <div class="calendar-dates">
-        <div class="days">
-
-            <div class="day label">MON</div>
-            <div class="day label">TUE</div>
-            <div class="day label">WED</div>
-            <div class="day label">THUR</div>
-            <div class="day label">FRI</div>
-            <div class="day label">SAT</div>
-            <div class="day label">SUN</div>
-
-            <div class="clear"></div>
+        <div class="calendarBtn monthBtn" onclick="$('#months').toggle('fast')">
+            <span id="currentMonth"></span>
+            <div id="months" class="months dropdown"></div>
         </div>
 
-        <div class="calendarBtn taskBtn" onclick="$('#daysTask').toggle('fast')">
-            <div id="calendarDays" class="days"></div>
-            <div id="daysTask" class="daysTask dropdown"></div>
+        <div class="calendarBtn yearBtn" onclick="$('#years').toggle('fast')">
+            <span id="currentYear"></span>
+            <div id="years" class="years dropdown"></div>
         </div>
 
+        <div class="clear"></div>
+
+        <div class="calendar-dates">
+            <div class="days">
+
+                <div class="day label">MON</div>
+                <div class="day label">TUE</div>
+                <div class="day label">WED</div>
+                <div class="day label">THUR</div>
+                <div class="day label">FRI</div>
+                <div class="day label">SAT</div>
+                <div class="day label">SUN</div>
+
+                <div class="clear"></div>
+            </div>
+
+            <div class="taskBtn" onclick="$('#daysTask').toggle('fast')">
+                <div id="calendarDays" class="days"></div>
+            </div>
+
+        </div>
     </div>
 </div>
 </body>

@@ -1,6 +1,6 @@
-const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const startYear = 1990;
-const endYear = 2020;
+const endYear = 2030;
 let month = 0;
 let year = 0;
 let selectedDays = [];
@@ -16,7 +16,6 @@ window.addEventListener('load', function () {
     loadCalendarMonths();
     loadCalendarYears();
     loadCalendarDays();
-    createTasksList();
 });
 
 function showTime() {
@@ -38,8 +37,8 @@ function showTime() {
     m = (m < 10) ? "0" + m : m;
 
     let time = h + ":" + m + " " + session;
-    document.getElementById("clock").textContent = time;
-    document.getElementById("clock").textContent = time;
+    // document.getElementById("clock").textContent = time;
+    // document.getElementById("clock").textContent = time;
 
     setTimeout(showTime, 1000);
 }
@@ -55,7 +54,6 @@ function loadCalendarMonths() {
     for (let i = 0; i < months.length; i++) {
         let loadedMonth = document.createElement("div");
         loadedMonth.innerHTML = months[i];
-        loadedMonth.classList.add("dropdown-item");
         loadedMonth.onclick = (function () {
             let selectedMonth = i;
             return function () {
@@ -76,7 +74,6 @@ function loadCalendarYears() {
     for (let i = startYear; i <= endYear; i++) {
         let loadedYear = document.createElement("div");
         loadedYear.innerHTML = i;
-        loadedYear.classList.add("dropdown-item");
         loadedYear.onclick = (function () {
             let selectedYear = i;
             return function () {
@@ -111,31 +108,43 @@ function loadCalendarDays() {
         day.className = "day";
         day.innerHTML = temp;
         day.dataset.day = temp;
+        let dayDate = new Date(year, month, temp);
 
-        day.addEventListener('click', function(){
-            this.classList.toggle('selected');
-            if (!selectedDays.includes(this.dataset.day)) {
-                selectedDays.push(this.dataset.day);
-            } else
-                selectedDays.splice(selectedDays.indexOf(this.dataset.day), 1);
+        day.addEventListener('click', function () {
+            const dayDateStr = normalizeDate(dayDate);
+            if (!!getTasksFromLS().find(task => task.date === dayDateStr)) {
+                const dayTasks = getTasksFromLSByDate(dayDateStr);
+                injectTasksToHtml(dayTasks);
+            } else {
+                injectTasksToHtml([]);
+            }
+
+
+            // this.classList.toggle('selected');
+            //
+            // if (!selectedDays.includes(this.dataset.day)) {
+            //     selectedDays.push(this.dataset.day);
+            // } else {
+            //     selectedDays.splice(selectedDays.indexOf(this.dataset.day), 1);
+            // }
         });
 
-        day.addEventListener('mousemove', function(e){
+        day.addEventListener('mousemove', function (e) {
             e.preventDefault();
             if (mousedown) {
                 this.classList.add('selected');
             }
-                if (!selectedDays.includes(this.dataset.day)) {
-                    selectedDays.push(this.dataset.day);
+            if (!selectedDays.includes(this.dataset.day)) {
+                selectedDays.push(this.dataset.day);
             }
         });
 
-        day.addEventListener('mousedown', function(e) {
+        day.addEventListener('mousedown', function (e) {
             e.preventDefault();
             mousedown = true;
         });
 
-        day.addEventListener('mouseup', function(e) {
+        day.addEventListener('mouseup', function (e) {
             e.preventDefault();
             mousedown = false;
         });
@@ -146,19 +155,43 @@ function loadCalendarDays() {
     document.getElementById("calendarDays").appendChild(clear);
 }
 
-
-function createTasksList() {
-    let numberOfDays = daysInMonth(month, year);
-    for (let i = 0; i < numberOfDays; i++) {
-        let temp = i + 1;
-        let dayTask = document.createElement("div");
-        dayTask.classList.add("dropdown");
-        dayTask.id = "taskDay_" + temp;
-        dayTask.className = "taskDay";
-        document.getElementById("daysTask").appendChild(dayTask);
-    }
+function normalizeDate(date) {
+    return date.getFullYear() + '-'
+    + ('0' + (date.getMonth()+1)).slice(-2) + '-'
+    + ('0' + date.getDate()).slice(-2)
 }
 
-function loadTaskList() {
-    let list = document.querySelector("[id*='taskDay']");
+function injectTasksToHtml(tasks) {
+    let tasksHtml = '';
+    tasks.forEach(task => {
+        const taskHtml = `
+            <div class="task">
+                <p>${task.title}</p>
+                <p>${task.description}</p>
+                <p>${task.time}</p>
+            </div>`;
+        tasksHtml += taskHtml;
+    });
+    document.querySelector('.tasks-list').innerHTML = tasksHtml;
+}
+
+function getTasksFromLS() {
+    const tasks = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        tasks.push(JSON.parse(localStorage.getItem(key)));
+    }
+    return tasks;
+}
+
+function getTasksFromLSByDate(dayDate) {
+    const tasks = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        const taskCandidate = JSON.parse(localStorage.getItem(key));
+        if (taskCandidate.date === dayDate) {
+            tasks.push(taskCandidate);
+        }
+    }
+    return tasks;
 }
