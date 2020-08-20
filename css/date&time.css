@@ -1,0 +1,127 @@
+:root {
+    --boxShadow: 0 2em 2em rgba(0,0,0,0.4);
+}
+
+body {
+    box-sizing: border-box;
+    background-image: url("../img/Screen_Shot_2020-08-20_at_09.17.54.png");
+    background-size: cover;
+
+}
+.calendar {
+    padding: 2em;
+    box-shadow: var(--boxShadow);
+    background-size: auto;
+    width: 40em;
+    height: 26em;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    background-color: rgba(43,40,46,0.67);
+    color: #000000;
+    cursor:pointer;
+    text-align: center;
+    font-size: 1em;
+    padding: 1em 1em;
+    width: 6em;
+}
+
+.dropdown .dropdown-item:hover {
+    opacity: 1;
+}
+
+.title {
+    text-align:center;
+    font-size: 1.2em;
+}
+
+.calendarBtn {
+    float: left;
+    background-color: rgba(46,41,49,0);
+    color: #000000;
+    text-align: center;
+    font-size: 1.2em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    cursor: pointer;
+    border-radius: 1em;
+}
+
+.calendarBtn:hover {
+    background-color: rgba(56,51,59,0);
+}
+
+.yearBtn {
+    float: right;
+}
+
+.calendar-dates .days .day {
+    float:left;
+    margin: 1%;
+    padding: 1%;
+    font-size:0.8em;
+    text-align:center;
+    border-radius: 1em;
+    border: solid 0.1em #5f5b5b;
+    width: 2em;
+    height: 2em;
+}
+
+.calendar-dates .day.blank {
+    background-color: transparent;
+    border:none;
+}
+
+.calendar-dates .day.selected {
+    background-color: #27272f;
+    color: #070505;
+    cursor:pointer;
+    opacity: .5;
+    transition: .5s opacity;
+}
+
+.calendar-dates .days .day.selected:hover {
+    opacity: 1;
+}
+
+.calendar-dates .day.label {
+    background-color: rgba(71,65,74,0);
+    color: black;
+    border:none;
+    font-weight:bold;
+}
+
+.clear {
+    clear:both;
+}
+
+.clock {
+    font-family: Samanata, serif;
+    font-size: 4em;
+    color: white;
+}
+
+.taskDay {
+    display: none;
+    position: absolute;
+    width: 3em;
+    box-shadow: var(--boxShadow);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.selected:hover .taskDay {
+    display: block;
+}
+
+.taskBtn .daysTask .day {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}

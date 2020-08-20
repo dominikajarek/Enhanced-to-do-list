@@ -2,15 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>To-Do List</title>
     <link rel="stylesheet" href="../css/mainPage.css">
-    <script src="../js/mainPage.js" defer></script>
+    <link rel="stylesheet" href="../css/date&time.css">
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous" defer>
+
+    </script>
+    <script src="../js/date&time.js" async defer></script>
+    <script src="../js/mainPage.js" async defer></script>
 </head>
 <body>
+
+    <div id="clock" class="clock" onload="showTime()"></div>
+
+
     <div id="container">
         <button id="add-task">Add task</button>
         <div id="tasks"></div>
     </div>
+
 
     <template id="task-template">
         <div class="task">
@@ -19,20 +35,28 @@
             <div class="task-date">
                 <label class="dateLabel">Date: </label>
                 <input type="date" class="date">
-                <input type="submit">
+
             </div>
             <div class="task-time">
                 <label class="timeLabel">Time: </label>
                 <input type="time" class="time">
-                <input type="submit">
+
             </div>
             <div class="task-description">
                 <label class="descriptionLabel">Your note: </label>
                 <input type="text" class="description">
-                <input type="submit">
+
             </div>
+
+            <p><button type="button" id="recordButton">
+                Speech to Text
+            </button><span id="record"></span>
+            </p>
+
             <input type="checkbox" class="checkbox">
             <label class="checkboxLabel">done</label>
+            <input type="submit">
+
         </div>
     </template>
 </body>
