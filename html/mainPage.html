@@ -19,32 +19,34 @@
         <i class='fas fa-search'></i>
     </div>
     <div id="tasks"></div>
-</div>
+    <div id="box">
+        <h2>Hello Dear!</h2>
+    </div>
 
-<template id="task-template">
-    <div class="task">
-        <button class="remove-task-button">x</button>
-        <h2 class="title" contenteditable="true"></h2>
-        <div class="task-date">
-            <label class="dateLabel">Date: </label>
-            <input type="date" class="date">
-        </div>
-        <div class="task-time">
-            <label class="timeLabel">Time: </label>
-            <input type="time" class="time">
-        </div>
-        <div class="task-description">
-            <label class="descriptionLabel">Your note: </label>
-            <div class="descriptionBox">
-                <textarea class="description" rows="2" cols="39" style="resize: none" contenteditable="true"></textarea>
-                <button type="button" class="mic-button"><i class="fas fa-microphone"></i></button>
+    <template id="task-template">
+        <div class="task">
+            <button class="remove-task-button">x</button>
+            <h2 class="title" contenteditable="true"></h2>
+            <div class="task-date">
+                <label class="dateLabel">Date: </label>
+                <input type="date" class="date">
+            </div>
+            <div class="task-time">
+                <label class="timeLabel">Time: </label>
+                <input type="time" class="time">
+            </div>
+            <div class="task-description">
+                <label class="descriptionLabel">Your note: </label>
+                <div class="descriptionBox">
+                    <textarea class="description" rows="2" cols="39" style="resize: none" contenteditable="true"></textarea>
+                    <button type="button" class="mic-button"><i class="fas fa-microphone"></i></button>
+                </div>
+            </div>
+            <div class="task-checkbox">
+                <input type="checkbox" class="checkbox">
+                <label class="checkboxLabel">done</label>
             </div>
         </div>
-        <div class="task-checkbox">
-            <input type="checkbox" class="checkbox">
-            <label class="checkboxLabel">done</label>
-        </div>
-    </div>
-</template>
+    </template>
 </body>
 </html>
