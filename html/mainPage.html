@@ -2,62 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>To-Do List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/mainPage.css">
-    <link rel="stylesheet" href="../css/date&time.css">
-    <script
-            src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous" defer>
-
-    </script>
-    <script src="../js/date&time.js" async defer></script>
-    <script src="../js/mainPage.js" async defer></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+    <script src="../js/mainPage.js" defer></script>
 </head>
 <body>
-
-    <div id="clock" class="clock" onload="showTime()"></div>
-
-
     <div id="container">
-        <button id="add-task">Add task</button>
+        <div id="buttons">
+            <button id="add-task">Add task</button>
+            <button id="submit">Submit</button>
+            <button id="search-task">Search</button>
+            <input id="search-box" type="text" placeholder="title/yyyy-mm-dd">
+        </div>
         <div id="tasks"></div>
     </div>
 
-
-    <template id="task-template">
-        <div class="task">
-            <button class="remove-task-button">x</button>
-            <h2 class="title" contenteditable="true"></h2>
-            <div class="task-date">
-                <label class="dateLabel">Date: </label>
-                <input type="date" class="date">
-
+<template id="task-template">
+    <div class="task">
+        <button class="remove-task-button">x</button>
+        <h2 class="title" contenteditable="true"></h2>
+        <div class="task-date">
+            <label class="dateLabel">Date: </label>
+            <input type="date" class="date">
+        </div>
+        <div class="task-time">
+            <label class="timeLabel">Time: </label>
+            <input type="time" class="time">
+        </div>
+        <div class="task-description">
+            <label class="descriptionLabel">Your note: </label>
+            <div class="descriptionBox">
+                <textarea class="description" rows="2" cols="39" style="resize: none" contenteditable="true"></textarea>
+                <button type="button" class="mic-button"><i class="fas fa-microphone"></i></button>
             </div>
-            <div class="task-time">
-                <label class="timeLabel">Time: </label>
-                <input type="time" class="time">
-
-            </div>
-            <div class="task-description">
-                <label class="descriptionLabel">Your note: </label>
-                <input type="text" class="description">
-
-            </div>
-
-            <p><button type="button" id="recordButton">
-                Speech to Text
-            </button><span id="record"></span>
-            </p>
-
+        </div>
+        <div class="task-checkbox">
             <input type="checkbox" class="checkbox">
             <label class="checkboxLabel">done</label>
-            <input type="submit">
-
         </div>
-    </template>
+    </div>
+</template>
 </body>
 </html>
