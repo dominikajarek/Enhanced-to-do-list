@@ -3,39 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>To-Do List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/mainPage.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
     <script src="../js/mainPage.js" defer></script>
 </head>
 <body>
-    <div id="container">
-        <button id="add-task">Add task</button>
-        <div id="tasks"></div>
-    </div>
+<div id="container">
+    <button id="add-task">Add task</button>
+    <input id="submit" type="submit">
+    <div id="tasks"></div>
+</div>
 
-    <template id="task-template">
-        <div class="task">
-            <button class="remove-task-button">x</button>
-            <h2 class="title" contenteditable="true"></h2>
-            <div class="task-date">
-                <label class="dateLabel">Date: </label>
-                <input type="date" class="date">
-                <input type="submit">
-            </div>
-            <div class="task-time">
-                <label class="timeLabel">Time: </label>
-                <input type="time" class="time">
-                <input type="submit">
-            </div>
-            <div class="task-description">
-                <label class="descriptionLabel">Your note: </label>
-                <input type="text" class="description">
-                <button type="button" class="mic-button"><i class="fas fa-microphone"></i></button>
-                <input type="submit">
-            </div>
+<template id="task-template">
+    <div class="task">
+        <button class="remove-task-button">x</button>
+        <h2 class="title" contenteditable="true"></h2>
+        <div class="task-date">
+            <label class="dateLabel">Date: </label>
+            <input type="date" class="date">
+        </div>
+        <div class="task-time">
+            <label class="timeLabel">Time: </label>
+            <input type="time" class="time">
+        </div>
+        <div class="task-description">
+            <label class="descriptionLabel">Your note: </label>
+            <textarea class="description" rows="2" cols="39" style="resize: none" contenteditable="true"></textarea>
+            <button type="button" class="mic-button"><i class="fas fa-microphone"></i></button>
+        </div>
+        <div class="task-checkbox">
             <input type="checkbox" class="checkbox">
             <label class="checkboxLabel">done</label>
         </div>
-    </template>
+    </div>
+</template>
 </body>
 </html>

@@ -8,7 +8,7 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
     document.getElementById("add-task").addEventListener('click', function () {
         addNewTask();
     });
-    document.addEventListener('click', saveData);
+    document.getElementById('submit').addEventListener('click', saveData);
 })();
 
 function addNewTask(title='Title', date='', time='', description='', isDone='') {
@@ -48,7 +48,7 @@ function addNewTask(title='Title', date='', time='', description='', isDone='') 
         clonedTemplate.querySelector('.description').value = description;
 
         //set checkbox 'id', it's label 'for' and checked value
-        clonedTemplate.querySelector('.checkbox').setAttribute('id', "checkbox_task_" + taskNumber);
+        clonedTemplate.querySelector('.task-checkbox').setAttribute('id', "checkbox_task_" + taskNumber);
         clonedTemplate.querySelector('.checkboxLabel').setAttribute('for', "checkbox_task_" + taskNumber);
         clonedTemplate.querySelector('.checkbox').checked = isDone;
 
@@ -132,7 +132,7 @@ function checkAdditionalWindows() {
         //set field for normal display of time box
         task.normalTime = task.querySelector('.task-time');
         //set field for hidden time box button
-        task.hiddenTime = document.createElement('BUTTON');
+        task.hiddenTime = document.createElement('button');
         task.hiddenTime.setAttribute('id', "hidden_" + task.normalTime.id);
         task.hiddenTime.innerText = '-';
         task.hiddenTime.addEventListener('click', function () {
@@ -151,7 +151,7 @@ function checkAdditionalWindows() {
         //set field for normal display of description box
         task.normalDescription = task.querySelector('.task-description');
         //set field for hidden description box button
-        task.hiddenDescription = document.createElement('BUTTON');
+        task.hiddenDescription = document.createElement('button');
         task.hiddenDescription.setAttribute('id', "hidden_" + task.normalDescription.id);
         task.hiddenDescription.innerText = '-';
         task.hiddenDescription.addEventListener('click', function () {

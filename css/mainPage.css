@@ -1,0 +1,83 @@
+* {
+    font-family: "Montserrat", sans-serif;
+    color: rgba(42, 44, 49, 85.1);
+}
+
+*:focus {
+    outline: none;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 1em 1em 1em 1em;
+    background: url("../img/desert.png") no-repeat center fixed;
+    background-size: cover;
+}
+
+.container {
+
+}
+
+.task .remove-task-button {
+    width: 1.6em;
+    height: 1.6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+}
+
+.title {
+    line-height: 0em;
+}
+
+.task {
+    margin-bottom: 0.8em;
+    margin-top: 1em;
+    padding-top: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    width: 25em;
+    height: 11.5em;
+    border-radius: 0.2em;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    background: rgba(255, 255, 255, 0.4);
+    line-height: 1.7em;
+}
+
+.task-description {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.mic-button {
+    width: 1.6em;
+    height: 1.6em;
+    margin-left: 0.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.description, .time, .date, .remove-task-button, .mic-button {
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 0.2em;
+}
+
+[id^=hidden] {
+    width: 3vw;
+    height: 2vh;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
