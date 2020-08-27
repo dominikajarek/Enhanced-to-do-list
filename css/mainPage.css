@@ -24,14 +24,6 @@ body {
     flex-direction: column;
 }
 
-#container {
-    order: 1;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-}
-
 #box {
     order: 2;
     margin: 2em 26em;
@@ -44,6 +36,14 @@ body {
     background-color: rgba(60, 61, 64, 0.6);
     line-height: 1.7em;
     box-shadow: 0 2em 2em rgba(0, 0, 0, 0.35);
+}
+
+#container {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
 }
 
 #tasks {
@@ -153,6 +153,7 @@ body {
     font-size: 1em;
     margin: 0.2em;
 }
+
 
 .button:hover, #submit:hover, #add-task:hover {
     color: var(--fontColor);

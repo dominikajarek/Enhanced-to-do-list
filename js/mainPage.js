@@ -28,12 +28,8 @@ function addNewTask(title='Title', date='', time='', description='', isDone='') 
         //set main task div 'id'
         clonedTemplate.querySelector('.task').setAttribute('id', "task_" + taskNumber);
 
-        //set title value
-        if (title === '') {
-            clonedTemplate.querySelector('.title').innerHTML = "Title cannot be empty";
-        } else {
-            clonedTemplate.querySelector('.title').innerHTML = title;
-        }
+        const taskTitle = clonedTemplate.querySelector('.title');
+        taskTitle.innerHTML = title === '' ? "Title cannot be empty" : title;
 
         //date div settings (add div 'id', description 'id', label 'for' and date value)
         clonedTemplate.querySelector('.date').setAttribute('id', "date_task_" + taskNumber);
@@ -45,6 +41,7 @@ function addNewTask(title='Title', date='', time='', description='', isDone='') 
         //time div settings (add div 'id', description 'id', label 'for' and time value)
         clonedTemplate.querySelector('.task-time').setAttribute('id', "time_div_task_" + taskNumber);
         clonedTemplate.querySelector('.time').setAttribute('id', "time_task_" + taskNumber);
+        //clean setting 'for' for labels
         clonedTemplate.querySelector('.timeLabel').setAttribute('for', "time_task_" + taskNumber);
         if (time !== ''){
             clonedTemplate.querySelector('.time').value = time;
@@ -66,12 +63,12 @@ function addNewTask(title='Title', date='', time='', description='', isDone='') 
         clonedTemplate.querySelector('.remove-task-button').addEventListener('click', function () {
             localStorage.removeItem(this.parentElement.id);
             this.parentElement.remove();
-        })
+        });
 
         enableSpeechRecognition(clonedTemplate);
 
         return clonedTemplate;
-    }
+    };
 
     const newTask = addNewTask();
     document.getElementById("tasks").appendChild(newTask);
@@ -79,23 +76,18 @@ function addNewTask(title='Title', date='', time='', description='', isDone='') 
 
 function saveData() {
     //make list of tasks
-    let taskList = document.getElementsByClassName('task');
-    for (let index = 0; index < taskList.length; index++){
-        let task = taskList[index];
-        let key = task.id;
-
+    let taskList = document.querySelectorAll('.task');
+    taskList.forEach( task => {
         //set description value
-        let descriptionValue;
         // (when description is empty, it changes to button so then it's undefined)
-        if (task.getElementsByClassName('description')[0] === undefined) {
-            descriptionValue = '';
-        } else {
-            descriptionValue = task.getElementsByClassName('description')[0].value;
-        }
+
+        let descriptionValue = task.querySelector('.description').value;
+        descriptionValue = descriptionValue === undefined ? '' : descriptionValue;
 
         //set time value
         let timeValue;
         // (when time is empty, it changes to button so then it's undefined)
+        //TODO get node object, change if else to ternary operator
         if (task.getElementsByClassName('time')[0] === undefined) {
             timeValue = '';
         } else {
@@ -103,38 +95,40 @@ function saveData() {
         }
 
         //set rest of values (title, date, isDone status)
-        let titleValue = task.getElementsByClassName('title')[0].textContent;
-        let dateValue = task.getElementsByClassName('date')[0].value;
-        let isDoneValue = task.getElementsByClassName('checkbox')[0].checked;
+        let titleValue = task.querySelector('title').textContent;
+        let dateValue = task.querySelector('date').value;
+        let isDoneValue = task.querySelector('checkbox').checked;
 
         let taskToSave = {'title': titleValue,
-                          'description': descriptionValue,
-                          'date': dateValue,
-                          'time': timeValue,
-                          'isDone': isDoneValue};
+            'description': descriptionValue,
+            'date': dateValue,
+            'time': timeValue,
+            'isDone': isDoneValue};
 
-        localStorage.setItem(key, JSON.stringify(taskToSave));
-    }
+        localStorage.setItem(task.id, JSON.stringify(taskToSave));
+    });
+
 }
 
 function loadData() {
+    //TODO change for to foreach
+    /*
+     for (let key in localStorage){
+       console.log(key)
+    }
+     */
     for (let index = 0; index < localStorage.length; index++) {
         let key = localStorage.key(index);
         if (key.includes('task')) {
-            let taskInfo = JSON.parse(localStorage.getItem(key));
-            let title = taskInfo.title;
-            let date = taskInfo.date;
-            let time = taskInfo.time;
-            let description = taskInfo.description;
-            let isDone = taskInfo.isDone;
-
-            addNewTask(title, date, time, description, isDone);
+            let task = JSON.parse(localStorage.getItem(key));
+            addNewTask(task.title, task.date, task.time, task.description, task.isDone);
         }
     }
 }
 
 function checkAdditionalWindows() {
     //set list of tasks
+    //TODO change getElementsByClassName to querySelectorAll, and use forEach loop
     let taskList = document.getElementsByClassName('task');
     for (let index = 0; index < taskList.length; index++) {
         let task = taskList[index];
@@ -182,43 +176,45 @@ function checkAdditionalWindows() {
 function enableSpeechRecognition(clonedTemplate) {
     let content;
 
-    if (SpeechRecognition) {
-        console.log('Your browser supports speech recognition');
+    // standard PSR
+    if (!SpeechRecognition) {
+        return console.log('Unfortunately, your browser doesn\'t support speech recognition');
+    }
 
-        const microphoneButton = clonedTemplate.querySelector('.mic-button');
-        const microphoneIcon = clonedTemplate.querySelector('i');
-        const recognition = new SpeechRecognition();
+    console.log('Your browser supports speech recognition');
 
-        microphoneButton.addEventListener('click', microphoneActivation, true);
+    const microphoneButton = clonedTemplate.querySelector('.mic-button');
+    const microphoneIcon = clonedTemplate.querySelector('i');
+    const recognition = new SpeechRecognition();
 
-        function microphoneActivation() {
-            content = this.parentElement.querySelector('.description');
-            microphoneIcon.classList.contains('fa-microphone') ? recognition.start() : recognition.stop();
+    microphoneButton.addEventListener('click', microphoneActivation, true);
+
+    function microphoneActivation() {
+        content = this.parentElement.querySelector('.description');
+        microphoneIcon.classList.contains('fa-microphone') ? recognition.start() : recognition.stop();
+    }
+
+    recognition.addEventListener('start', startRecognition);
+    function startRecognition() {
+        microphoneIcon.classList.remove('fa-microphone');
+        microphoneIcon.classList.add('fa-microphone-slash');
+        console.log('Speech recognition active');
+    }
+
+    recognition.addEventListener('end', endRecognition);
+    function endRecognition() {
+        microphoneIcon.classList.remove('fa-microphone-slash');
+        microphoneIcon.classList.add('fa-microphone');
+        console.log('Speech recognition inactive');
+    }
+
+    recognition.addEventListener('result', resultOfSpeechRecognition);
+    function resultOfSpeechRecognition(event) {
+        const transcript = event.results[event.resultIndex][0].transcript;
+        //TODO check why we use two !
+        if (!!content) {
+            content.value = transcript;
         }
-
-        recognition.addEventListener('start', startRecognition);
-        function startRecognition() {
-            microphoneIcon.classList.remove('fa-microphone');
-            microphoneIcon.classList.add('fa-microphone-slash');
-            console.log('Speech recognition active');
-        }
-
-        recognition.addEventListener('end', endRecognition);
-        function endRecognition() {
-            microphoneIcon.classList.remove('fa-microphone-slash');
-            microphoneIcon.classList.add('fa-microphone');
-            console.log('Speech recognition inactive');
-        }
-
-        recognition.addEventListener('result', resultOfSpeechRecognition)
-        function resultOfSpeechRecognition(event) {
-            const transcript = event.results[event.resultIndex][0].transcript;
-            if (!!content) {
-                content.value = transcript;
-            }
-        }
-    } else {
-        console.log('Unfortunately, your browser doesn\'t support speech recognition');
     }
 }
 
@@ -273,15 +269,15 @@ function displayTime() {
 
 function displayDay() {
     let d = new Date();
-    let weekday = new Array(7);
-    weekday[0] = "Sunday";
-    weekday[1] = "Monday";
-    weekday[2] = "Tuesday";
-    weekday[3] = "Wednesday";
-    weekday[4] = "Thursday";
-    weekday[5] = "Friday";
-    weekday[6] = "Saturday";
-
-    let day = weekday[d.getDay()];
-    document.getElementById("day").textContent = day;
+    // let weekday = new Array(7);
+    // weekday[0] = "Sunday";
+    // weekday[1] = "Monday";
+    // weekday[2] = "Tuesday";
+    // weekday[3] = "Wednesday";
+    // weekday[4] = "Thursday";
+    // weekday[5] = "Friday";
+    // weekday[6] = "Saturday";
+    //
+    let weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    document.getElementById("day").textContent = weekday[d.getDay()];
 }

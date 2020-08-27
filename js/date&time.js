@@ -41,6 +41,20 @@ function loadCalendarMonths() {
     }
 }
 
+// function loadCaledar(range = 'months', start = 0, end = 12) {
+//     for (let i = start; i < end; i++) {
+//         let loaded = document.createElement("div");
+//         loaded.innerHTML = range === "months" ? months[i] : i;
+//         loaded.onclick = (function () {
+//             return function () {
+//                 document.getElementById(range === "months" ? "currentMonth" : "currentYear").innerHTML = i.toString();
+//                 loadCalendarDays();
+//                 return i;
+//             }
+//         })();
+//         document.getElementById(range).appendChild(loaded);
+//     }
+// }
 
 function loadCalendarYears() {
     document.getElementById("years").innerHTML = "";
@@ -49,10 +63,8 @@ function loadCalendarYears() {
         let loadedYear = document.createElement("div");
         loadedYear.innerHTML = i;
         loadedYear.onclick = (function () {
-            let selectedYear = i;
             return function () {
-                year = selectedYear;
-                document.getElementById("currentYear").innerHTML = year;
+                document.getElementById("currentYear").innerHTML = i;
                 loadCalendarDays();
                 return year;
             }
@@ -134,6 +146,7 @@ function injectTasksToHtml(tasks) {
 
 function getTasksFromLS() {
     const tasks = [];
+    //TODO foreach
     for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
         tasks.push(JSON.parse(localStorage.getItem(key)));
@@ -143,6 +156,7 @@ function getTasksFromLS() {
 
 function getTasksFromLSByDate(dayDate) {
     const tasks = [];
+    //TODO foreach
     for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
         const taskCandidate = JSON.parse(localStorage.getItem(key));
