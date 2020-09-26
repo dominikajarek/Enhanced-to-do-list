@@ -272,16 +272,8 @@ function displayTime() {
 }
 
 function displayDay() {
-    let d = new Date();
-    let weekday = new Array(7);
-    weekday[0] = "Sunday";
-    weekday[1] = "Monday";
-    weekday[2] = "Tuesday";
-    weekday[3] = "Wednesday";
-    weekday[4] = "Thursday";
-    weekday[5] = "Friday";
-    weekday[6] = "Saturday";
+    let date = new Date();
+    let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-    let day = weekday[d.getDay()];
-    document.getElementById("day").textContent = day;
+    document.getElementById("day").textContent = days[date.getDay()];
 }
