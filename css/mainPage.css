@@ -16,12 +16,15 @@
 }
 
 body {
-    margin: 2em 2em;
-    box-sizing: border-box;
-    background-image: url("../img/desert.png");
+    background: url("../img/desert.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
     display: flex;
     flex-direction: column;
+    margin: 2em 2em;
+    box-sizing: border-box;
 }
 
 #container {
