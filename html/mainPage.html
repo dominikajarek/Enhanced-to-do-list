@@ -1,56 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>To-Do List</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/mainPage.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
-    <script src="../js/mainPage.js" defer></script>
-</head>
-<body>
-<div id="container">
-    <div id="buttons">
-        <button id="add-task">Add task</button>
-        <button id="submit">Submit</button>
-        <a href="calendar.html" class="button">Calendar</a>
-        <input id="search-box" type="text" placeholder="title / yyyy-mm-dd">
-        <button id="search-task"><i class='fas fa-search'></i></button>
+    <head>
+        <meta charset="UTF-8">
+        <title>To-Do List</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/mainPage.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+        <script src="../js/mainPage.js" defer></script>
+    </head>
 
-    </div>
-    <div id="tasks"></div>
-    <div id="box">
-        <h1>Hello!</h1>
-        <div id="clock"></div>
-        <div id="daySentence">
-            <p>Today is <span id="day"></span></p>
-        </div>
-    </div>
-</div>
-    <template id="task-template">
-        <div class="task">
-            <button class="remove-task-button">x</button>
-            <h2 class="title" contenteditable="true"></h2>
-            <div class="task-date">
-                <label class="dateLabel">Date: </label>
-                <input type="date" class="date">
+    <body>
+        <div id="container">
+            <div id="buttons">
+                <button id="add-task">Add task</button>
+                <button id="submit">Submit</button>
+                <a href="calendar.html" class="button">Calendar</a>
+                <input id="search-box" type="text" placeholder="title / yyyy-mm-dd">
+                <button id="search-task"><i class='fas fa-search'></i></button>
             </div>
-            <div class="task-time">
-                <label class="timeLabel">Time: </label>
-                <input type="time" class="time">
-            </div>
-            <div class="task-description">
-                <label class="descriptionLabel">Your note: </label>
-                <div class="descriptionBox">
-                    <textarea class="description" rows="2" cols="39" style="resize: none" contenteditable="true"></textarea>
-                    <button type="button" class="mic-button"><i class="fas fa-microphone"></i></button>
+            <div id="tasks"></div>
+            <div id="box">
+                <h1>Hello!</h1>
+                <div id="clock"></div>
+                <div id="daySentence">
+                    <p>Today is <span id="day"></span></p>
                 </div>
             </div>
-            <div class="task-checkbox">
-                <input type="checkbox" class="checkbox">
-                <label class="checkboxLabel">done</label>
-            </div>
         </div>
-    </template>
-</body>
+
+        <template id="task-template">
+            <div class="task">
+                <button class="remove-task-button">x</button>
+                <h2 class="title" contenteditable="true"></h2>
+                <div class="task-date">
+                    <label class="dateLabel">Date: </label>
+                    <input type="date" class="date">
+                </div>
+                <div class="task-time">
+                    <label class="timeLabel">Time: </label>
+                    <input type="time" class="time">
+                </div>
+                <div class="task-description">
+                    <label class="descriptionLabel">Your note: </label>
+                    <div class="descriptionBox">
+                        <textarea class="description" rows="2" cols="39" style="resize: none" contenteditable="true"></textarea>
+                        <button type="button" class="mic-button"><i class="fas fa-microphone"></i></button>
+                    </div>
+                </div>
+                <div class="task-checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <label class="checkboxLabel">done</label>
+                </div>
+            </div>
+        </template>
+    </body>
 </html>
