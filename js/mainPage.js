@@ -273,7 +273,7 @@ function displayTime() {
 
 function displayDay() {
     let date = new Date();
-    let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     document.getElementById("day").textContent = days[date.getDay()];
 }
