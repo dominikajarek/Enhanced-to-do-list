@@ -17,7 +17,7 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
     displayDay();
 })();
 
-function addNewTask(title='Title', date='', time='', description='', isDone='') {
+function addNewTask(title='', date='', time='', description='', isDone='') {
     const addNewTask = function () {
         taskNumber++;
 
@@ -29,10 +29,8 @@ function addNewTask(title='Title', date='', time='', description='', isDone='') 
         clonedTemplate.querySelector('.task').setAttribute('id', "task_" + taskNumber);
 
         //set title value
-        if (title === '') {
-            clonedTemplate.querySelector('.title').innerHTML = "Title cannot be empty";
-        } else {
-            clonedTemplate.querySelector('.title').innerHTML = title;
+        if (title !== '') {
+            clonedTemplate.querySelector('.title').value = title;
         }
 
         //date div settings (add div 'id', description 'id', label 'for' and date value)
@@ -103,7 +101,7 @@ function saveData() {
         }
 
         //set rest of values (title, date, isDone status)
-        let titleValue = task.getElementsByClassName('title')[0].textContent;
+        let titleValue = task.getElementsByClassName('title')[0].value;
         let dateValue = task.getElementsByClassName('date')[0].value;
         let isDoneValue = task.getElementsByClassName('checkbox')[0].checked;
 
