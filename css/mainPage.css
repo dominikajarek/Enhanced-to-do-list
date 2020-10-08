@@ -64,11 +64,15 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    /*align-self: flex-end;*/
 }
 
 .remove-task-button {
     align-self: flex-end;
+    padding-bottom: 0.1em;
+}
+
+.remove-task-button, #add-task, #submit {
+    cursor: pointer;
 }
 
 .title {
