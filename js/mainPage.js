@@ -111,7 +111,18 @@ function saveData() {
                           'time': timeValue,
                           'isDone': isDoneValue};
 
-        localStorage.setItem(key, JSON.stringify(taskToSave));
+        if (localStorage.length > 0){
+            for (let index = 0; index < localStorage.length; index++) {
+                let innerKey = localStorage.key(index);
+                let taskInfo = JSON.parse(localStorage.getItem(innerKey));
+                if (titleValue !== taskInfo.title) {
+                    localStorage.setItem(key, JSON.stringify(taskToSave));
+                }
+            }
+        } else {
+            localStorage.setItem(key, JSON.stringify(taskToSave));
+        }
+
     }
 }
 
