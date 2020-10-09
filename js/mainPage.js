@@ -62,7 +62,7 @@ function addNewTask(title='', date='', time='', description='', isDone='') {
 
         //add eventListener to button removing task
         clonedTemplate.querySelector('.remove-task-button').addEventListener('click', function () {
-            localStorage.removeItem(this.parentElement.id);
+            localStorage.removeItem("task_" + taskNumber);
             this.parentElement.parentElement.remove();
         })
 
@@ -111,7 +111,7 @@ function saveData() {
                           'time': timeValue,
                           'isDone': isDoneValue};
 
-        if (localStorage.length > 0){
+        if (localStorage.length > 0) {
             for (let index = 0; index < localStorage.length; index++) {
                 let innerKey = localStorage.key(index);
                 let taskInfo = JSON.parse(localStorage.getItem(innerKey));
@@ -245,7 +245,7 @@ function searchForTask() {
     let taskList = document.getElementsByClassName('task');
     for (let index = 0; index < taskList.length; index++) {
         let task = taskList[index];
-        if (task.querySelector('.title').textContent.includes(searchPhrase)) {
+        if (task.querySelector('.title').value.includes(searchPhrase)) {
             task.style.display = 'block';
         }
         console.log(task.querySelector('.date').value);
