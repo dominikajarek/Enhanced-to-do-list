@@ -63,7 +63,7 @@ function addNewTask(title='', date='', time='', description='', isDone='') {
         //add eventListener to button removing task
         clonedTemplate.querySelector('.remove-task-button').addEventListener('click', function () {
             localStorage.removeItem(this.parentElement.id);
-            this.parentElement.remove();
+            this.parentElement.parentElement.remove();
         })
 
         enableSpeechRecognition(clonedTemplate);
